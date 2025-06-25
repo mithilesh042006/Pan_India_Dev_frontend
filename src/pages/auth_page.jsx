@@ -161,58 +161,33 @@ const AuthPage = () => {
   );
 
   return (
-    <div style={styles.container}>
-      <style>
-        {`
-          @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-          }
-          @keyframes dash {
-            0% { stroke-dasharray: 1, 150; stroke-dashoffset: 0; }
-            50% { stroke-dasharray: 90, 150; stroke-dashoffset: -35; }
-            100% { stroke-dasharray: 90, 150; stroke-dashoffset: -124; }
-          }
-          @keyframes slideUp {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-          }
-          .slide-up { animation: slideUp 0.3s ease-out; }
-        `}
-      </style>
-      
-      <div style={styles.wrapper}>
+    <div className="container">
+      <div className="wrapper">
         {/* Header */}
-        <div style={styles.header}>
-          <div style={styles.iconContainer}>
+        <div className="header">
+          <div className="icon-container">
             <UserIcon />
           </div>
-          <h1 style={styles.title}>
+          <h1 className="title">
             {isLogin ? "Welcome Back" : "Create Account"}
           </h1>
-          <p style={styles.subtitle}>
+          <p className="subtitle">
             {isLogin ? "Sign in to your account" : "Join us today"}
           </p>
         </div>
 
         {/* Main Card */}
-        <div style={styles.card}>
+        <div className="card">
           {/* Toggle Buttons */}
-          <div style={styles.toggleContainer}>
+          <div className="toggle-container">
             <button
-              style={{
-                ...styles.toggleButton,
-                ...(isLogin ? styles.activeToggle : {})
-              }}
+              className={`toggle-button ${isLogin ? 'active' : ''}`}
               onClick={() => toggleMode(true)}
             >
               Login
             </button>
             <button
-              style={{
-                ...styles.toggleButton,
-                ...(!isLogin ? styles.activeToggle : {})
-              }}
+              className={`toggle-button ${!isLogin ? 'active' : ''}`}
               onClick={() => toggleMode(false)}
             >
               Register
@@ -221,19 +196,19 @@ const AuthPage = () => {
 
           {/* Success Message */}
           {success && (
-            <div style={styles.successMessage} className="slide-up">
+            <div className="success-message slide-up">
               <CheckIcon />
               <span>{success}</span>
             </div>
           )}
 
           {/* Form */}
-          <div style={styles.form}>
+          <div className="form">
             {/* Email Field */}
-            <div style={styles.fieldContainer}>
-              <label style={styles.label}>Email</label>
-              <div style={styles.inputContainer}>
-                <div style={styles.inputIcon}>
+            <div className="field-container">
+              <label className="label">Email</label>
+              <div className="input-container">
+                <div className="input-icon">
                   <MailIcon />
                 </div>
                 <input
@@ -241,26 +216,23 @@ const AuthPage = () => {
                   name="email"
                   value={form.email}
                   onChange={handleChange}
-                  style={{
-                    ...styles.input,
-                    ...(errors.email ? styles.inputError : {})
-                  }}
+                  className={`input ${errors.email ? 'error' : ''}`}
                   placeholder="Enter your email"
                   autoComplete="username"
                 />
               </div>
               {errors.email && (
-                <div style={styles.errorMessage} className="slide-up">
+                <div className="error-message slide-up">
                   ⚠️ {errors.email}
                 </div>
               )}
             </div>
 
             {/* Password Field */}
-            <div style={styles.fieldContainer}>
-              <label style={styles.label}>Password</label>
-              <div style={styles.inputContainer}>
-                <div style={styles.inputIcon}>
+            <div className="field-container">
+              <label className="label">Password</label>
+              <div className="input-container">
+                <div className="input-icon">
                   <LockIcon />
                 </div>
                 <input
@@ -268,23 +240,20 @@ const AuthPage = () => {
                   name="password"
                   value={form.password}
                   onChange={handleChange}
-                  style={{
-                    ...styles.input,
-                    ...(errors.password ? styles.inputError : {})
-                  }}
+                  className={`input ${errors.password ? 'error' : ''}`}
                   placeholder="Enter your password"
                   autoComplete={isLogin ? "current-password" : "new-password"}
                 />
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  style={styles.eyeButton}
+                  className="eye-button"
                 >
                   <EyeIcon show={!showPassword} />
                 </button>
               </div>
               {errors.password && (
-                <div style={styles.errorMessage} className="slide-up">
+                <div className="error-message slide-up">
                   ⚠️ {errors.password}
                 </div>
               )}
@@ -292,10 +261,10 @@ const AuthPage = () => {
 
             {/* Confirm Password Field */}
             {!isLogin && (
-              <div style={styles.fieldContainer}>
-                <label style={styles.label}>Confirm Password</label>
-                <div style={styles.inputContainer}>
-                  <div style={styles.inputIcon}>
+              <div className="field-container">
+                <label className="label">Confirm Password</label>
+                <div className="input-container">
+                  <div className="input-icon">
                     <LockIcon />
                   </div>
                   <input
@@ -303,23 +272,20 @@ const AuthPage = () => {
                     name="confirmPassword"
                     value={form.confirmPassword}
                     onChange={handleChange}
-                    style={{
-                      ...styles.input,
-                      ...(errors.confirmPassword ? styles.inputError : {})
-                    }}
+                    className={`input ${errors.confirmPassword ? 'error' : ''}`}
                     placeholder="Confirm your password"
                     autoComplete="new-password"
                   />
                   <button
                     type="button"
                     onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                    style={styles.eyeButton}
+                    className="eye-button"
                   >
                     <EyeIcon show={!showConfirmPassword} />
                   </button>
                 </div>
                 {errors.confirmPassword && (
-                  <div style={styles.errorMessage} className="slide-up">
+                  <div className="error-message slide-up">
                     ⚠️ {errors.confirmPassword}
                   </div>
                 )}
@@ -330,13 +296,10 @@ const AuthPage = () => {
             <button
               onClick={handleSubmit}
               disabled={isLoading}
-              style={{
-                ...styles.submitButton,
-                ...(isLoading ? styles.submitButtonDisabled : {})
-              }}
+              className="submit-button"
             >
               {isLoading ? (
-                <div style={styles.loadingContainer}>
+                <div className="loading-container">
                   <LoadingSpinner />
                   <span>Processing...</span>
                 </div>
@@ -347,12 +310,12 @@ const AuthPage = () => {
           </div>
 
           {/* Footer */}
-          <div style={styles.footer}>
-            <p style={styles.footerText}>
+          <div className="footer">
+            <p className="footer-text">
               {isLogin ? "Don't have an account? " : "Already have an account? "}
               <button
                 onClick={() => toggleMode(!isLogin)}
-                style={styles.footerLink}
+                className="footer-link"
               >
                 {isLogin ? "Sign up" : "Sign in"}
               </button>
@@ -362,202 +325,6 @@ const AuthPage = () => {
       </div>
     </div>
   );
-};
-
-const styles = {
-  container: {
-    minHeight: "100vh",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
-    padding: "20px",
-    fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif"
-  },
-  wrapper: {
-    width: "100%",
-    maxWidth: "420px"
-  },
-  header: {
-    textAlign: "center",
-    marginBottom: "32px"
-  },
-  iconContainer: {
-    width: "64px",
-    height: "64px",
-    background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
-    borderRadius: "50%",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    margin: "0 auto 16px auto",
-    boxShadow: "0 8px 32px rgba(0,0,0,0.1)",
-    color: "white"
-  },
-  title: {
-    fontSize: "28px",
-    fontWeight: "700",
-    color: "white",
-    margin: "0 0 8px 0"
-  },
-  subtitle: {
-    color: "rgba(255,255,255,0.8)",
-    fontSize: "16px",
-    margin: "0"
-  },
-  card: {
-    background: "rgba(255,255,255,0.95)",
-    backdropFilter: "blur(10px)",
-    borderRadius: "20px",
-    boxShadow: "0 20px 40px rgba(0,0,0,0.1)",
-    border: "1px solid rgba(255,255,255,0.2)",
-    padding: "32px"
-  },
-  toggleContainer: {
-    display: "flex",
-    background: "#f5f5f5",
-    borderRadius: "12px",
-    padding: "4px",
-    marginBottom: "32px"
-  },
-  toggleButton: {
-    flex: 1,
-    padding: "12px 16px",
-    background: "none",
-    border: "none",
-    borderRadius: "8px",
-    fontSize: "16px",
-    fontWeight: "600",
-    color: "#666",
-    cursor: "pointer",
-    transition: "all 0.3s ease",
-    outline: "none"
-  },
-  activeToggle: {
-    background: "white",
-    color: "#667eea",
-    boxShadow: "0 2px 8px rgba(0,0,0,0.1)"
-  },
-  successMessage: {
-    display: "flex",
-    alignItems: "center",
-    gap: "8px",
-    background: "#f0f9ff",
-    border: "1px solid #bae6fd",
-    color: "#0369a1",
-    padding: "12px 16px",
-    borderRadius: "12px",
-    marginBottom: "24px",
-    fontWeight: "500"
-  },
-  form: {
-    display: "flex",
-    flexDirection: "column",
-    gap: "24px"
-  },
-  fieldContainer: {
-    display: "flex",
-    flexDirection: "column",
-    gap: "8px"
-  },
-  label: {
-    fontSize: "14px",
-    fontWeight: "600",
-    color: "#374151",
-    marginBottom: "4px"
-  },
-  inputContainer: {
-    position: "relative",
-    display: "flex",
-    alignItems: "center"
-  },
-  inputIcon: {
-    position: "absolute",
-    left: "12px",
-    color: "#9ca3af",
-    zIndex: 1,
-    display: "flex",
-    alignItems: "center"
-  },
-  input: {
-    width: "100%",
-    padding: "14px 16px 14px 44px",
-    fontSize: "16px",
-    border: "2px solid #e5e7eb",
-    borderRadius: "12px",
-    outline: "none",
-    transition: "all 0.2s ease",
-    background: "white",
-    boxSizing: "border-box"
-  },
-  inputError: {
-    borderColor: "#ef4444",
-    background: "#fef2f2"
-  },
-  eyeButton: {
-    position: "absolute",
-    right: "12px",
-    background: "none",
-    border: "none",
-    color: "#9ca3af",
-    cursor: "pointer",
-    padding: "4px",
-    borderRadius: "4px",
-    transition: "color 0.2s ease",
-    outline: "none"
-  },
-  errorMessage: {
-    color: "#dc2626",
-    fontSize: "14px",
-    display: "flex",
-    alignItems: "center",
-    gap: "4px"
-  },
-  submitButton: {
-    width: "100%",
-    padding: "14px 0",
-    background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
-    color: "white",
-    border: "none",
-    borderRadius: "12px",
-    fontSize: "16px",
-    fontWeight: "600",
-    cursor: "pointer",
-    transition: "all 0.2s ease",
-    boxShadow: "0 4px 16px rgba(102, 126, 234, 0.4)",
-    outline: "none",
-    marginTop: "8px"
-  },
-  submitButtonDisabled: {
-    background: "#9ca3af",
-    cursor: "not-allowed",
-    boxShadow: "none"
-  },
-  loadingContainer: {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    gap: "8px"
-  },
-  footer: {
-    textAlign: "center",
-    marginTop: "24px"
-  },
-  footerText: {
-    color: "#6b7280",
-    fontSize: "14px",
-    margin: 0
-  },
-  footerLink: {
-    color: "#667eea",
-    background: "none",
-    border: "none",
-    fontSize: "14px",
-    fontWeight: "600",
-    cursor: "pointer",
-    textDecoration: "underline",
-    outline: "none"
-  }
 };
 
 export default AuthPage;
