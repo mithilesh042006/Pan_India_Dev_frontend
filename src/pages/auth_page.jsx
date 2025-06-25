@@ -1,10 +1,12 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const AuthPage = () => {
   const [isLogin, setIsLogin] = useState(true);
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
   const [form, setForm] = useState({
     email: "",
     password: "",
@@ -94,12 +96,11 @@ const AuthPage = () => {
       setIsLoading(false);
       setSuccess(`${isLogin ? "Login" : "Registration"} successful!`);
       setErrors({});
-      // Reset form after success
+      // Navigate to input details page after successful authentication
       setTimeout(() => {
-        setForm({ email: "", password: "", confirmPassword: "" });
-        setSuccess("");
-      }, 2000);
-    }, 1500);
+        navigate("/input-details");
+      }, 800);
+    }, 500);
   };
 
   const toggleMode = (loginMode) => {
